@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/svn/!svn/ver/8/trunk/samples
+END
+test.ppt
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/6/trunk/samples/test.ppt
+END
+test_get_slideshow.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/6/trunk/samples/test_get_slideshow.py
+END
+test.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/7/trunk/samples/test.pdf
+END
+test_get_slideshow_by_tag.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/6/trunk/samples/test_get_slideshow_by_tag.py
+END
+test_upload_slideshow.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/6/trunk/samples/test_upload_slideshow.py
+END
+test_get_slideshow_by_group.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/6/trunk/samples/test_get_slideshow_by_group.py
+END
+test_download_slideshow.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/8/trunk/samples/test_download_slideshow.py
+END
+test_get_slideshow_by_user.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/6/trunk/samples/test_get_slideshow_by_user.py
+END

@@ -1,0 +1,10 @@
+C:\Users\Иван\Documents\SharpDevelop Projects\cbrexporter\cbrexporter\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Иван\Documents\SharpDevelop Projects\cbrexporter\cbrexporter\bin\Debug\cbrexporter.exe
+C:\Users\Иван\Documents\SharpDevelop Projects\cbrexporter\cbrexporter\bin\Debug\cbrexporter.pdb
+C:\Users\Иван\Documents\SharpDevelop Projects\cbrexporter\cbrexporter\obj\x86\Debug\cbrexporter.exe
+C:\Users\Иван\Documents\SharpDevelop Projects\cbrexporter\cbrexporter\obj\x86\Debug\cbrexporter.pdb
+E:\Projects\Active\AdmMeta\cbr\cbrexporter\cbrexporter\bin\Debug\cbrexporter.exe
+E:\Projects\Active\AdmMeta\cbr\cbrexporter\cbrexporter\bin\Debug\cbrexporter.pdb
+E:\Projects\Active\AdmMeta\cbr\cbrexporter\cbrexporter\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Projects\Active\AdmMeta\cbr\cbrexporter\cbrexporter\obj\x86\Debug\cbrexporter.exe
+E:\Projects\Active\AdmMeta\cbr\cbrexporter\cbrexporter\obj\x86\Debug\cbrexporter.pdb

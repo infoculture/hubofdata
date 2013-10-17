@@ -1,0 +1,764 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://web.cbr.ru/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://web.cbr.ru/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Веб сервис для получения информации регионов (регионального раздела) ver 2009.03.17</wsdl:documentation>
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://web.cbr.ru/">
+			<s:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+			<s:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+			<s:element name="SetDatesRange">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="DtFromDate" type="s:dateTime" />
+						<s:element minOccurs="1" maxOccurs="1" name="DtToDate" type="s:dateTime" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="SetDatesRangeResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="SetDatesRangeResult" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ClearIndicatorsList">
+				<s:complexType />
+			</s:element>
+			<s:element name="ClearIndicatorsListResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="ClearIndicatorsListResult" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AddIndicators">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="Indicator_code" type="s:int" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AddIndicatorsResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="AddIndicatorsResult" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ClearRegionList">
+				<s:complexType />
+			</s:element>
+			<s:element name="ClearRegionListResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="ClearRegionListResult" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AddRegion">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="Region_code" type="s:int" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AddRegionResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="AddRegionResult" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="IndicatorCodeByName">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="Ind_name" type="s:string" />
+						<s:element minOccurs="0" maxOccurs="1" name="TableName" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="IndicatorCodeByNameResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="IndicatorCodeByNameResult" type="s:int" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="IndicatorsList">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="IND_table" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="IndicatorsListResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="IndicatorsListResult">
+							<s:complexType>
+								<s:sequence>
+									<s:element ref="s:schema" />
+									<s:any />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="TablesList">
+				<s:complexType />
+			</s:element>
+			<s:element name="TablesListResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="TablesListResult">
+							<s:complexType>
+								<s:sequence>
+									<s:element ref="s:schema" />
+									<s:any />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RegionsList">
+				<s:complexType />
+			</s:element>
+			<s:element name="RegionsListResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="RegionsListResult">
+							<s:complexType>
+								<s:sequence>
+									<s:element ref="s:schema" />
+									<s:any />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RegionCodeByName">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="Region_name" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RegionCodeByNameResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="RegionCodeByNameResult" type="s:int" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="GET_Error">
+				<s:complexType />
+			</s:element>
+			<s:element name="GET_ErrorResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="GET_ErrorResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="Close">
+				<s:complexType />
+			</s:element>
+			<s:element name="CloseResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="CloseResult" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="OpenDataBase">
+				<s:complexType />
+			</s:element>
+			<s:element name="OpenDataBaseResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="OpenDataBaseResult" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="GetRawRegionData">
+				<s:complexType />
+			</s:element>
+			<s:element name="GetRawRegionDataResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="GetRawRegionDataResult">
+							<s:complexType>
+								<s:sequence>
+									<s:element ref="s:schema" />
+									<s:any />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RetIndicatorDim">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RetIndicatorDimResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="RetIndicatorDimResult" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="swToEnglish">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="swToE" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="swToEnglishResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="swToEnglishResult" type="s:boolean" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ExecASXMLDocument">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="1" maxOccurs="1" name="Y1" type="s:int" />
+						<s:element minOccurs="1" maxOccurs="1" name="Y2" type="s:int" />
+						<s:element minOccurs="1" maxOccurs="1" name="Ind_id" type="s:int" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ExecASXMLDocumentResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="ExecASXMLDocumentResult">
+							<s:complexType mixed="true">
+								<s:sequence>
+									<s:any />
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="SetDatesRangeSoapIn">
+		<wsdl:part name="parameters" element="tns:SetDatesRange" />
+	</wsdl:message>
+	<wsdl:message name="SetDatesRangeSoapOut">
+		<wsdl:part name="parameters" element="tns:SetDatesRangeResponse" />
+	</wsdl:message>
+	<wsdl:message name="ClearIndicatorsListSoapIn">
+		<wsdl:part name="parameters" element="tns:ClearIndicatorsList" />
+	</wsdl:message>
+	<wsdl:message name="ClearIndicatorsListSoapOut">
+		<wsdl:part name="parameters" element="tns:ClearIndicatorsListResponse" />
+	</wsdl:message>
+	<wsdl:message name="AddIndicatorsSoapIn">
+		<wsdl:part name="parameters" element="tns:AddIndicators" />
+	</wsdl:message>
+	<wsdl:message name="AddIndicatorsSoapOut">
+		<wsdl:part name="parameters" element="tns:AddIndicatorsResponse" />
+	</wsdl:message>
+	<wsdl:message name="ClearRegionListSoapIn">
+		<wsdl:part name="parameters" element="tns:ClearRegionList" />
+	</wsdl:message>
+	<wsdl:message name="ClearRegionListSoapOut">
+		<wsdl:part name="parameters" element="tns:ClearRegionListResponse" />
+	</wsdl:message>
+	<wsdl:message name="AddRegionSoapIn">
+		<wsdl:part name="parameters" element="tns:AddRegion" />
+	</wsdl:message>
+	<wsdl:message name="AddRegionSoapOut">
+		<wsdl:part name="parameters" element="tns:AddRegionResponse" />
+	</wsdl:message>
+	<wsdl:message name="IndicatorCodeByNameSoapIn">
+		<wsdl:part name="parameters" element="tns:IndicatorCodeByName" />
+	</wsdl:message>
+	<wsdl:message name="IndicatorCodeByNameSoapOut">
+		<wsdl:part name="parameters" element="tns:IndicatorCodeByNameResponse" />
+	</wsdl:message>
+	<wsdl:message name="IndicatorsListSoapIn">
+		<wsdl:part name="parameters" element="tns:IndicatorsList" />
+	</wsdl:message>
+	<wsdl:message name="IndicatorsListSoapOut">
+		<wsdl:part name="parameters" element="tns:IndicatorsListResponse" />
+	</wsdl:message>
+	<wsdl:message name="TablesListSoapIn">
+		<wsdl:part name="parameters" element="tns:TablesList" />
+	</wsdl:message>
+	<wsdl:message name="TablesListSoapOut">
+		<wsdl:part name="parameters" element="tns:TablesListResponse" />
+	</wsdl:message>
+	<wsdl:message name="RegionsListSoapIn">
+		<wsdl:part name="parameters" element="tns:RegionsList" />
+	</wsdl:message>
+	<wsdl:message name="RegionsListSoapOut">
+		<wsdl:part name="parameters" element="tns:RegionsListResponse" />
+	</wsdl:message>
+	<wsdl:message name="RegionCodeByNameSoapIn">
+		<wsdl:part name="parameters" element="tns:RegionCodeByName" />
+	</wsdl:message>
+	<wsdl:message name="RegionCodeByNameSoapOut">
+		<wsdl:part name="parameters" element="tns:RegionCodeByNameResponse" />
+	</wsdl:message>
+	<wsdl:message name="GET_ErrorSoapIn">
+		<wsdl:part name="parameters" element="tns:GET_Error" />
+	</wsdl:message>
+	<wsdl:message name="GET_ErrorSoapOut">
+		<wsdl:part name="parameters" element="tns:GET_ErrorResponse" />
+	</wsdl:message>
+	<wsdl:message name="CloseSoapIn">
+		<wsdl:part name="parameters" element="tns:Close" />
+	</wsdl:message>
+	<wsdl:message name="CloseSoapOut">
+		<wsdl:part name="parameters" element="tns:CloseResponse" />
+	</wsdl:message>
+	<wsdl:message name="OpenDataBaseSoapIn">
+		<wsdl:part name="parameters" element="tns:OpenDataBase" />
+	</wsdl:message>
+	<wsdl:message name="OpenDataBaseSoapOut">
+		<wsdl:part name="parameters" element="tns:OpenDataBaseResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetRawRegionDataSoapIn">
+		<wsdl:part name="parameters" element="tns:GetRawRegionData" />
+	</wsdl:message>
+	<wsdl:message name="GetRawRegionDataSoapOut">
+		<wsdl:part name="parameters" element="tns:GetRawRegionDataResponse" />
+	</wsdl:message>
+	<wsdl:message name="RetIndicatorDimSoapIn">
+		<wsdl:part name="parameters" element="tns:RetIndicatorDim" />
+	</wsdl:message>
+	<wsdl:message name="RetIndicatorDimSoapOut">
+		<wsdl:part name="parameters" element="tns:RetIndicatorDimResponse" />
+	</wsdl:message>
+	<wsdl:message name="swToEnglishSoapIn">
+		<wsdl:part name="parameters" element="tns:swToEnglish" />
+	</wsdl:message>
+	<wsdl:message name="swToEnglishSoapOut">
+		<wsdl:part name="parameters" element="tns:swToEnglishResponse" />
+	</wsdl:message>
+	<wsdl:message name="ExecASXMLDocumentSoapIn">
+		<wsdl:part name="parameters" element="tns:ExecASXMLDocument" />
+	</wsdl:message>
+	<wsdl:message name="ExecASXMLDocumentSoapOut">
+		<wsdl:part name="parameters" element="tns:ExecASXMLDocumentResponse" />
+	</wsdl:message>
+	<wsdl:portType name="RegionInfoServiceSoap">
+		<wsdl:operation name="SetDatesRange">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Установка диапазона дат</wsdl:documentation>
+			<wsdl:input message="tns:SetDatesRangeSoapIn" />
+			<wsdl:output message="tns:SetDatesRangeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ClearIndicatorsList">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Удаление всех кодов индикаторов из списока</wsdl:documentation>
+			<wsdl:input message="tns:ClearIndicatorsListSoapIn" />
+			<wsdl:output message="tns:ClearIndicatorsListSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="AddIndicators">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Добавление кода индикатора в список</wsdl:documentation>
+			<wsdl:input message="tns:AddIndicatorsSoapIn" />
+			<wsdl:output message="tns:AddIndicatorsSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ClearRegionList">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Удаление всех кодов регионов из списока</wsdl:documentation>
+			<wsdl:input message="tns:ClearRegionListSoapIn" />
+			<wsdl:output message="tns:ClearRegionListSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="AddRegion">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Добавление кодов региона в список регионов</wsdl:documentation>
+			<wsdl:input message="tns:AddRegionSoapIn" />
+			<wsdl:output message="tns:AddRegionSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="IndicatorCodeByName">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение кодов индикаторов по названию</wsdl:documentation>
+			<wsdl:input message="tns:IndicatorCodeByNameSoapIn" />
+			<wsdl:output message="tns:IndicatorCodeByNameSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="IndicatorsList">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка индикаторов для таблиц</wsdl:documentation>
+			<wsdl:input message="tns:IndicatorsListSoapIn" />
+			<wsdl:output message="tns:IndicatorsListSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="TablesList">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка таблиц индикаторов</wsdl:documentation>
+			<wsdl:input message="tns:TablesListSoapIn" />
+			<wsdl:output message="tns:TablesListSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="RegionsList">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка регионов</wsdl:documentation>
+			<wsdl:input message="tns:RegionsListSoapIn" />
+			<wsdl:output message="tns:RegionsListSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="RegionCodeByName">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">получение кодов регионов по названию региона</wsdl:documentation>
+			<wsdl:input message="tns:RegionCodeByNameSoapIn" />
+			<wsdl:output message="tns:RegionCodeByNameSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GET_Error">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Данные об ошибках</wsdl:documentation>
+			<wsdl:input message="tns:GET_ErrorSoapIn" />
+			<wsdl:output message="tns:GET_ErrorSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="Close">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Завершение работы</wsdl:documentation>
+			<wsdl:input message="tns:CloseSoapIn" />
+			<wsdl:output message="tns:CloseSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="OpenDataBase">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Открытие базы данных</wsdl:documentation>
+			<wsdl:input message="tns:OpenDataBaseSoapIn" />
+			<wsdl:output message="tns:OpenDataBaseSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetRawRegionData">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение данных  (как DataSet)</wsdl:documentation>
+			<wsdl:input message="tns:GetRawRegionDataSoapIn" />
+			<wsdl:output message="tns:GetRawRegionDataSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="RetIndicatorDim">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Размерность индикатора </wsdl:documentation>
+			<wsdl:input message="tns:RetIndicatorDimSoapIn" />
+			<wsdl:output message="tns:RetIndicatorDimSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="swToEnglish">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Переключение на англ. язык</wsdl:documentation>
+			<wsdl:input message="tns:swToEnglishSoapIn" />
+			<wsdl:output message="tns:swToEnglishSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ExecASXMLDocument">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение данных в формате XML</wsdl:documentation>
+			<wsdl:input message="tns:ExecASXMLDocumentSoapIn" />
+			<wsdl:output message="tns:ExecASXMLDocumentSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="RegionInfoServiceSoap" type="tns:RegionInfoServiceSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="SetDatesRange">
+			<soap:operation soapAction="http://web.cbr.ru/SetDatesRange" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ClearIndicatorsList">
+			<soap:operation soapAction="http://web.cbr.ru/ClearIndicatorsList" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddIndicators">
+			<soap:operation soapAction="http://web.cbr.ru/AddIndicators" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ClearRegionList">
+			<soap:operation soapAction="http://web.cbr.ru/ClearRegionList" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddRegion">
+			<soap:operation soapAction="http://web.cbr.ru/AddRegion" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="IndicatorCodeByName">
+			<soap:operation soapAction="http://web.cbr.ru/IndicatorCodeByName" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="IndicatorsList">
+			<soap:operation soapAction="http://web.cbr.ru/IndicatorsList" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="TablesList">
+			<soap:operation soapAction="http://web.cbr.ru/TablesList" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RegionsList">
+			<soap:operation soapAction="http://web.cbr.ru/RegionsList" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RegionCodeByName">
+			<soap:operation soapAction="http://web.cbr.ru/RegionCodeByName" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GET_Error">
+			<soap:operation soapAction="http://web.cbr.ru/GET_Error" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Close">
+			<soap:operation soapAction="http://web.cbr.ru/Close" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="OpenDataBase">
+			<soap:operation soapAction="http://web.cbr.ru/OpenDataBase" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRawRegionData">
+			<soap:operation soapAction="http://web.cbr.ru/GetRawRegionData" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RetIndicatorDim">
+			<soap:operation soapAction="http://web.cbr.ru/RetIndicatorDim" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="swToEnglish">
+			<soap:operation soapAction="http://web.cbr.ru/swToEnglish" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ExecASXMLDocument">
+			<soap:operation soapAction="http://web.cbr.ru/ExecASXMLDocument" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="RegionInfoServiceSoap12" type="tns:RegionInfoServiceSoap">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="SetDatesRange">
+			<soap12:operation soapAction="http://web.cbr.ru/SetDatesRange" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ClearIndicatorsList">
+			<soap12:operation soapAction="http://web.cbr.ru/ClearIndicatorsList" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddIndicators">
+			<soap12:operation soapAction="http://web.cbr.ru/AddIndicators" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ClearRegionList">
+			<soap12:operation soapAction="http://web.cbr.ru/ClearRegionList" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddRegion">
+			<soap12:operation soapAction="http://web.cbr.ru/AddRegion" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="IndicatorCodeByName">
+			<soap12:operation soapAction="http://web.cbr.ru/IndicatorCodeByName" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="IndicatorsList">
+			<soap12:operation soapAction="http://web.cbr.ru/IndicatorsList" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="TablesList">
+			<soap12:operation soapAction="http://web.cbr.ru/TablesList" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RegionsList">
+			<soap12:operation soapAction="http://web.cbr.ru/RegionsList" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RegionCodeByName">
+			<soap12:operation soapAction="http://web.cbr.ru/RegionCodeByName" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GET_Error">
+			<soap12:operation soapAction="http://web.cbr.ru/GET_Error" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Close">
+			<soap12:operation soapAction="http://web.cbr.ru/Close" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="OpenDataBase">
+			<soap12:operation soapAction="http://web.cbr.ru/OpenDataBase" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRawRegionData">
+			<soap12:operation soapAction="http://web.cbr.ru/GetRawRegionData" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RetIndicatorDim">
+			<soap12:operation soapAction="http://web.cbr.ru/RetIndicatorDim" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="swToEnglish">
+			<soap12:operation soapAction="http://web.cbr.ru/swToEnglish" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ExecASXMLDocument">
+			<soap12:operation soapAction="http://web.cbr.ru/ExecASXMLDocument" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="RegionInfoService">
+		<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Веб сервис для получения информации регионов (регионального раздела) ver 2009.03.17</wsdl:documentation>
+		<wsdl:port name="RegionInfoServiceSoap" binding="tns:RegionInfoServiceSoap">
+			<soap:address location="http://www.cbr.ru/RegionWebServ/regional.asmx" />
+		</wsdl:port>
+		<wsdl:port name="RegionInfoServiceSoap12" binding="tns:RegionInfoServiceSoap12">
+			<soap12:address location="http://www.cbr.ru/RegionWebServ/regional.asmx" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
