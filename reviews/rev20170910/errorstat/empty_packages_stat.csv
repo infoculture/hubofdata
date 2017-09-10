@@ -1,0 +1,14 @@
+Всего наборов с пустыми файлами: 5912
+Всего наборов с пустыми файлами excel (xls): 4001
+    (перечень - в empty_packages_excel.csv)
+Всего наборов с пустыми файлами zip: 95
+    (перечень - в empty_packages_zip.csv)
+Всего наборов с пустыми файлами json: 1034
+    (перечень - в empty_packages_json.csv)
+Всего наборов с пустыми файлами по длинной ссылке: 5396
+    (ссылки вида http://d2f6aadeaff96aaafda4-614b9ac7aa1f2556da9aa7df0eee2346.r98.cf2.rackcdn.com/cikrf/data/raw/2007/pvr.pdf)
+    (перечень - в empty_packages_rackcdn.csv)
+Всего наборов с пустыми или мелкими файлами .cdx в : 23
+Всего наборов с закрытым доступом в CDN: 11
+    (ссылки вида http://cdn2.sdlabs.ru/preservation/webcollect/lawenf/112.ru/112.ru.cdx.xz)
+"Всего наборов с пустыми файлами, не вошедших в другие категории: 373"
