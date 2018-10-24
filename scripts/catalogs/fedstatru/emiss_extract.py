@@ -5,18 +5,25 @@ EMISS data extractor
 """
 import csv
 import os, os.path
-from urllib import urlopen, unquote_plus
-from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
+from urllib.request import urlopen
+from urllib.parse import unquote_plus
+from bs4 import BeautifulSoup, BeautifulStoneSoup
 
-import mechanize
-import cookielib
+import http.cookiejar
+#import mechanize
+import robobrowser
 import time
+import json
+import re
+from requests import Session
+import requests
 ORGLIST_FNAME = 'orglist.csv'
 INDLIST_FNAME = 'indlist.csv'
-LIST_URL = 'http://fedstat.ru/organizations/list.do'
-ORG_PAT = 'http://fedstat.ru/indicators/org.do?id=%s'
-DATA_PAT = 'http://fedstat.ru/indicator/data.do?id=%s'
-BASE_URL = 'http://fedstat.ru'
+LIST_URL = 'https://fedstat.ru/organizations/list.do'
+ORG_PAT = 'https://fedstat.ru/indicators/org.do?id=%s'
+DATA_PAT = 'https://fedstat.ru/indicator/%s.do'
+BASE_URL = 'https://fedstat.ru'
+FILE_URL = 'https://fedstat.ru/indicator/data.do'
 
 ORG_XML_PAT = 'http://fedstat.ru/indicators/expand.do?expandId=%s&display=organization'
 ORG_IND_PAT = 'http://fedstat.ru/indicators/expand.do?expandId=%s&id=%s&display=organization'
@@ -26,31 +33,18 @@ class DataExtractor:
     """Data extractor for emill"""
     def __init__(self):
 
-        # Browser
-        br = mechanize.Browser()
-
         # Cookie Jar
-        cj = cookielib.LWPCookieJar()
-        br.set_cookiejar(cj)
+        cj = http.cookiejar.LWPCookieJar()
+        user_agent='User-agent Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1'
+        session = Session()
+        session.headers.update({
+            'Content-Encoding': 'gzip',
+        })
+        rb = robobrowser.RoboBrowser(session=session, user_agent=user_agent)
+        rb.session.cookies.update(cj)
 
-        # Browser options
-        br.set_handle_equiv(True)
-        br.set_handle_gzip(True)
-        br.set_handle_redirect(True)
-        br.set_handle_referer(True)
-        br.set_handle_robots(False)
-
-        # Follows refresh 0 but not hangs on refresh > 0
-        br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
-
-        # Want debugging messages?
-        #br.set_debug_http(True)
-        #br.set_debug_redirects(True)
-        #br.set_debug_responses(True)
-
-        # User-Agent (this is cheating, ok?)
-        br.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
-        self.br = br
+        self.rb = rb
+        # Browser
 
     def extract_org_list(self):
         """Extracts org list"""
@@ -71,14 +65,14 @@ class DataExtractor:
             name = unquote_plus(tds[1].find('a').string)
             s = ('\t'.join([id, url, name]) + '\n').encode('utf8')
             f.write(s)
-            print s.strip()
+            print(s.strip())
 
 
 
     def __process_folder(self, url):
         allitems = []
         url = BASE_URL + '/indicators/' + url
-#        print url
+        #        print url
         u = urlopen(url)
         data = u.read()
         soup = BeautifulSoup(data)
@@ -89,7 +83,7 @@ class DataExtractor:
             a = ds.find('a', attrs={'class' : 'fastTreeItemName'})
             res = [item['id'], BASE_URL + a['href'], a.string]
             allitems.append(res)
-#            print ('\t'.join(res)).encode('utf8')
+        #            print ('\t'.join(res)).encode('utf8')
         for f in folders:
             allitems.extend(self.__process_folder(f['src']))
         return allitems
@@ -104,10 +98,10 @@ class DataExtractor:
         i = 0
         for item in reader:
             i += 1
-            print i
-#            if i != 6: continue
+            print(i)
+            #            if i != 6: continue
             url = ORG_XML_PAT % item['id']
-#            print url
+            #            print url
             u = urlopen(url)
             data = u.read()
             soup = BeautifulSoup(data)
@@ -120,7 +114,7 @@ class DataExtractor:
                 theitem.append(item['name'].decode('utf8'))
                 s = ('\t'.join(theitem) + '\n').encode('utf8')
                 f.write(s)
-                print s.strip()
+                print(s.strip())
 
 
     def extract_all_ind_data(self):
@@ -129,62 +123,79 @@ class DataExtractor:
         for item in reader:
             i += 1
             self.extract_ind_data(item['id'][1:])
-            print i, item['name']
+            print(i, item['name'])
 
 
     def extract_ind_data(self, id):
         """Extracts selected indicator data"""
         if os.path.exists('data/data_%s_full.sdmx' % id) and os.path.exists('data/data_%s_full.xls' % id):
             return
-        br = self.br
-        # Save as SDMX
-        r = br.open(DATA_PAT % id)
-        br.select_form(nr=1)
-        br.form.set_all_readonly(False)
-        values = []
-        for k in br.form.controls:
-            if k.name[0:28] == '__checkbox_selectedFilterIds':
-                values.append(k.value)
-        i = 0
-        for k in br.form.controls:
-            if k.name == 'selectedFilterIds' and i == 0:
-                i += 1
-            elif k.name == 'selectedFilterIds':
-                k.value = values
-                break
-        br.form['format'] = 'sdmx'
-        br.submit()
-        f = open('data/data_%s_full.sdmx' % id , 'w')
-        f.write(br.response().read())
-        f.close()
+        rb = self.rb
+        print(DATA_PAT % id)
+        r = rb.open(DATA_PAT % id)
+        soup = BeautifulSoup(rb.response.content.decode("utf-8") )
+        the_word='new FGrid'
+        data=str(soup.findAll('script',text=lambda t: t and the_word in t)[0])
 
+        found = re.search('title: \'(.+)', data).group()
+        title=found.split(': ')[1]
+
+        data_post=[('lineObjectIds','0')]
+        try:
+            found = re.search('left_columns: \[\n(.+)', data).group(1)
+        except AttributeError:
+                found = '' # apply your error handling
+
+        for i in found.strip().split(', '):
+            data_post.append(('lineObjectIds',i))
+
+
+        try:
+            found = re.search('top_columns: \[\n(.+)', data).group(1)
+        except AttributeError:
+            found = '' # apply your error handling
+
+
+        for i in found.strip().split(', '):
+            data_post.append(('columnObjectIds',i))
+
+        i=0
+        prefix=''
+        suffix=''
+        num=data.find('filters')
+
+        for letter in data[num:].splitlines():
+            if '{' in letter:
+                i+=1
+            if '}' in letter:
+                i-=1
+            if re.findall('\d+: {' ,letter):
+                if i<=2:
+                    prefix=letter.strip().split(':')[0]
+                if i>2:
+                    suffix=letter.strip().split(':')[0]
+            data_post.append(('selectedFilterIds',prefix+'_'+suffix))
+        data_post.append(('id', str(id)))
+        params = (('format', 'sdmx'),)
+        response = requests.post(FILE_URL, params=params, data=data_post)
+
+        # Save as SDMX
+        f = open('data/data_%s_full.sdmx' % id , 'wb')
+        f.write(response.content)
+        f.close()
 
         # Save as XLS
-        r = br.open(DATA_PAT % id)
-        br.select_form(nr=1)
-        br.form.set_all_readonly(False)
-        values = []
-        for k in br.form.controls:
-            if k.name[0:28] == '__checkbox_selectedFilterIds':
-                values.append(k.value)
-        i = 0
-        for k in br.form.controls:
-            if k.name == 'selectedFilterIds' and i == 0:
-                i += 1
-            elif k.name == 'selectedFilterIds':
-                k.value = values
-                break
-        br.form['format'] = 'excel'
-        br.submit()
-        f = open('data/data_%s_full.xls' % id , 'w')
-        f.write(br.response().read())
+        params = (('format', 'excel'),)
+        response = requests.post(FILE_URL, params=params, data=data_post)
+        f = open('data/data_%s_full.xls' % id , 'wb')
+        f.write(response.content)
         f.close()
-
 
 
 if __name__ == "__main__":
     imp = DataExtractor()
     #imp.extract_ind_data('37429')
-    imp.extract_all_ind_data()
+    imp.extract_ind_data('37430')
+#    imp.extract_all_ind_data()
 #    imp.extract_org_list()
 #    imp.extract_ind_list()
